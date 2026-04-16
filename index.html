@@ -3,148 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Restaurante - Reservas com E-mail Automático</title>
+    <title>Restaurante - Reservas com Pedido Antecipado</title>
     <meta name="theme-color" content="#121212">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Meu Restaurante">
     <link rel="manifest" href="manifest.json">
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #0f0f0f;
-            min-height: 100vh;
-            padding: 12px;
-            color: #e0e0e0;
-        }
-
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: #1e1e1e;
-            border-radius: 28px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            padding: 18px 14px;
-            margin-bottom: 16px;
-            border: 1px solid #2c2c2c;
-        }
-
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #66bb6a, #4caf50);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 4px;
-        }
-
-        .subheader {
-            font-size: 0.7rem;
-            background: #2c2c2c;
-            padding: 8px 12px;
-            border-radius: 20px;
-            margin: 10px 0;
-            color: #ffb74d;
-            text-align: center;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.7rem;
-            background: #252525;
-            padding: 8px 12px;
-            border-radius: 20px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .mapa-container {
-            background: #2a2418;
-            border-radius: 28px;
-            padding: 16px 12px;
-            margin-bottom: 16px;
-            box-shadow: inset 0 0 0 2px #3e3524;
-        }
-
-        .area-restaurante {
-            background: #2f2a1f;
-            border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 16px;
-            border: 1px dashed #5e4b2f;
-        }
-
-        .area-titulo {
-            font-size: 0.7rem;
-            font-weight: bold;
-            color: #d4a373;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .mesas-disposicao {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .mesa-mapa {
-            background: #2c2c2c;
-            border-radius: 18px;
-            padding: 10px 6px;
-            min-width: 75px;
-            flex: 1 0 auto;
-            max-width: 85px;
-            text-align: center;
-            cursor: pointer;
-            border: 2px solid #5a4a2e;
-            transition: all 0.1s ease;
-        }
-
-        .mesa-mapa.disponivel {
-            background: linear-gradient(145deg, #1b3a1f, #0f2a12);
-            border-color: #4caf50;
-        }
-
-        .mesa-mapa.reservada {
-            background: linear-gradient(145deg, #3d1e1e, #2d1414);
-            border-color: #ef5350;
-            cursor: not-allowed;
-            opacity: 0.9;
-        }
-
-        .mesa-mapa.com-grupo {
-            background: linear-gradient(145deg, #2a2a1a, #1e1e12);
-            border-color: #ff9800;
-            cursor: pointer;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); border-color: #ffc107; }
-            100% { transform: scale(1); }
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; min-height: 100vh; padding: 12px; color: #e0e0e0; }
+        .container { max-width: 100%; margin: 0 auto; }
+        .card { background: #1e1e1e; border-radius: 28px; padding: 18px 14px; margin-bottom: 16px; border: 1px solid #2c2c2c; }
+        h1 { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #66bb6a, #4caf50); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 4px; }
+        .subheader { font-size: 0.7rem; background: #2c2c2c; padding: 8px 12px; border-radius: 20px; margin: 10px 0; color: #ffb74d; text-align: center; }
+        .stats { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.7rem; background: #252525; padding: 8px 12px; border-radius: 20px; flex-wrap: wrap; gap: 8px; }
+        .mapa-container { background: #2a2418; border-radius: 28px; padding: 16px 12px; margin-bottom: 16px; }
+        .area-restaurante { background: #2f2a1f; border-radius: 20px; padding: 12px; margin-bottom: 16px; border: 1px dashed #5e4b2f; }
+        .area-titulo { font-size: 0.7rem; font-weight: bold; color: #d4a373; margin-bottom: 10px; text-align: center; }
+        .mesas-disposicao { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .mesa-mapa { background: #2c2c2c; border-radius: 18px; padding: 10px 6px; min-width: 75px; flex: 1 0 auto; max-width: 85px; text-align: center; cursor: pointer; border: 2px solid #5a4a2e; }
+        .mesa-mapa.disponivel { background: linear-gradient(145deg, #1b3a1f, #0f2a12); border-color: #4caf50; }
+        .mesa-mapa.reservada { background: linear-gradient(145deg, #3d1e1e, #2d1414); border-color: #ef5350; cursor: not-allowed; opacity: 0.9; }
+        .mesa-mapa.com-grupo { background: linear-gradient(145deg, #2a2a1a, #1e1e12); border-color: #ff9800; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); border-color: #ffc107; } 100% { transform: scale(1); } }
         .mesa-mapa:active { transform: scale(0.96); }
         .numero-mesa { font-weight: 800; font-size: 0.85rem; margin: 4px 0; }
         .capacidade-mesa { font-size: 0.55rem; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 2px 5px; display: inline-block; }
@@ -152,223 +33,66 @@
         .disponivel .status-mapa { color: #81c784; }
         .reservada .status-mapa { color: #ef9a9a; }
         .com-grupo .status-mapa { color: #ffb74d; }
-
-        .legenda {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 12px;
-            font-size: 0.6rem;
-            flex-wrap: wrap;
-        }
+        .legenda { display: flex; justify-content: center; gap: 16px; margin-top: 12px; font-size: 0.6rem; flex-wrap: wrap; }
         .legenda-cor { width: 16px; height: 16px; border-radius: 10px; }
-
-        .tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 16px;
-            background: #252525;
-            padding: 5px;
-            border-radius: 50px;
-            overflow-x: auto;
-        }
-        .tab-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 10px 4px;
-            font-weight: 600;
-            font-size: 0.68rem;
-            border-radius: 40px;
-            cursor: pointer;
-            color: #b0b0b0;
-            white-space: nowrap;
-        }
+        .tabs { display: flex; gap: 6px; margin-bottom: 16px; background: #252525; padding: 5px; border-radius: 50px; overflow-x: auto; }
+        .tab-btn { flex: 1; background: transparent; border: none; padding: 10px 4px; font-weight: 600; font-size: 0.68rem; border-radius: 40px; cursor: pointer; color: #b0b0b0; white-space: nowrap; }
         .tab-btn.active { background: #4caf50; color: white; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-
         .form-group { margin-bottom: 14px; }
         label { font-weight: 600; font-size: 0.75rem; display: block; margin-bottom: 5px; color: #c0c0c0; }
-        input, select, textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #3a3a3a;
-            border-radius: 24px;
-            background: #2c2c2c;
-            color: #e0e0e0;
-            font-family: inherit;
-            font-size: 0.9rem;
-        }
+        input, select, textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #3a3a3a; border-radius: 24px; background: #2c2c2c; color: #e0e0e0; font-family: inherit; font-size: 0.9rem; }
         input:focus, select:focus { border-color: #4caf50; outline: none; }
-        button {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            width: 100%;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
+        button { background: #4caf50; color: white; border: none; padding: 14px; border-radius: 40px; font-weight: 700; width: 100%; cursor: pointer; }
         button:active { transform: scale(0.97); }
         .btn-warning { background: #ff9800; color: #1e1e1e; }
-        .btn-small { width: auto; padding: 8px 16px; font-size: 0.7rem; }
-
         .menu-categoria { margin-bottom: 20px; }
         .menu-categoria h3 { color: #ffb74d; font-size: 0.9rem; margin-bottom: 10px; border-left: 3px solid #ff9800; padding-left: 10px; }
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #333;
-        }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #333; }
         .menu-item-nome { font-weight: 600; font-size: 0.85rem; }
         .menu-item-desc { font-size: 0.65rem; color: #aaa; margin-top: 2px; }
         .menu-item-preco { font-weight: 700; color: #ff9800; font-size: 0.85rem; }
-        .menu-item-select input { width: 20px; height: 20px; cursor: pointer; margin: 0; }
-        .rodizio-box {
-            background: linear-gradient(135deg, #2a2a1a, #1e1e12);
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            margin-bottom: 15px;
-            border: 1px solid #ff9800;
-        }
+        .menu-item input { width: 22px; height: 22px; margin: 0; cursor: pointer; }
+        .rodizio-box { background: linear-gradient(135deg, #2a2a1a, #1e1e12); border-radius: 20px; padding: 15px; text-align: center; margin-bottom: 15px; border: 1px solid #ff9800; }
         .rodizio-preco { font-size: 1.8rem; font-weight: 800; color: #ff9800; }
         .rodizio-detalhe { font-size: 0.7rem; color: #ccc; }
-
-        .resumo-pedido {
-            background: #252525;
-            border-radius: 20px;
-            padding: 12px;
-            margin-top: 15px;
-        }
+        .resumo-pedido { background: #252525; border-radius: 20px; padding: 12px; margin-top: 15px; }
         .resumo-item { font-size: 0.7rem; padding: 4px 0; border-bottom: 1px solid #3a3a3a; }
-
-        .reserva-item {
-            background: #252525;
-            border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-left: 5px solid #ff9800;
-        }
+        .reserva-item { background: #252525; border-radius: 20px; padding: 12px; margin-bottom: 12px; border-left: 5px solid #ff9800; }
         .btn-confirmar { background: #4caf50; width: auto; padding: 8px 16px; font-size: 0.7rem; margin-right: 8px; }
-        .btn-cancelar { background: #3d1e1e; color: #ff8a8a; width: auto; padding: 8px 16px; font-size: 0.7rem; margin-top: 8px; }
+        .btn-cancelar { background: #3d1e1e; color: #ff8a8a; width: auto; padding: 8px 16px; font-size: 0.7rem; }
         .vazio { text-align: center; color: #8a8a8a; padding: 32px 16px; background: #202020; border-radius: 24px; }
-
-        .notif-permission {
-            background: #ff980020;
-            padding: 10px;
-            border-radius: 20px;
-            text-align: center;
-            font-size: 0.7rem;
-            margin-bottom: 12px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-        }
+        .notif-permission { background: #ff980020; padding: 10px; border-radius: 20px; text-align: center; font-size: 0.7rem; margin-bottom: 12px; cursor: pointer; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; visibility: hidden; opacity: 0; transition: 0.2s; }
         .modal.active { visibility: visible; opacity: 1; }
-        .modal-card {
-            background: #1e1e1e;
-            width: 85%;
-            max-width: 340px;
-            border-radius: 32px;
-            padding: 24px;
-            text-align: center;
-            border: 1px solid #3a3a3a;
-        }
-        .modal-buttons { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
-        .modal-buttons button { flex: 1; padding: 12px; }
-
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #4caf50;
-            border-radius: 50px;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 99;
-            border: none;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        body.light-mode {
-            background: #f0f2f5;
-            color: #1a2c3e;
-        }
+        .modal-card { background: #1e1e1e; width: 85%; max-width: 340px; border-radius: 32px; padding: 24px; text-align: center; border: 1px solid #3a3a3a; }
+        .modal-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .theme-toggle { position: fixed; bottom: 20px; right: 20px; background: #4caf50; border-radius: 50px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 99; border: none; font-size: 1.2rem; }
+        body.light-mode { background: #f0f2f5; color: #1a2c3e; }
         body.light-mode .card { background: white; }
         body.light-mode .mapa-container { background: #f5f0e1; }
         body.light-mode .area-restaurante { background: #fef8ed; }
         body.light-mode .mesa-mapa { background: white; }
         body.light-mode .mesa-mapa.disponivel { background: linear-gradient(145deg, #e8f5e9, #c8e6c9); }
         body.light-mode .mesa-mapa.reservada { background: linear-gradient(145deg, #ffebee, #ffcdd2); }
-        body.light-mode .mesa-mapa.com-grupo { background: #fff8e1; }
         body.light-mode input, body.light-mode select, body.light-mode textarea { background: white; color: #1a2c3e; }
         body.light-mode .reserva-item { background: #fafcff; }
-        body.light-mode .modal-card { background: white; }
         body.light-mode .menu-item { border-bottom-color: #e0e0e0; }
         body.light-mode .menu-item-desc { color: #666; }
-        body.light-mode .resumo-pedido { background: #f0f0f0; }
-
-        @media (max-width: 480px) {
-            .mesa-mapa { min-width: 68px; padding: 7px 4px; }
-            .numero-mesa { font-size: 0.75rem; }
-        }
+        .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #4caf50; color: white; padding: 12px 20px; border-radius: 40px; font-size: 0.8rem; z-index: 1000; animation: fadeOut 3s forwards; }
+        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
         footer { text-align: center; font-size: 0.6rem; color: #7a7a7a; margin-top: 16px; }
-        
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #4caf50;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            z-index: 1000;
-            animation: fadeOut 3s forwards;
-        }
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
+        @media (max-width: 480px) { .mesa-mapa { min-width: 68px; padding: 7px 4px; } .numero-mesa { font-size: 0.75rem; } }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="card">
         <h1>🍽️ Meu Restaurante</h1>
-        <div class="subheader">📧 E-mail automático ao reservar | Mapa de Mesas | Pedido antecipado</div>
+        <div class="subheader">📋 Selecione os produtos antecipadamente | Mapa de Mesas | Reservas 10+</div>
 
-        <div class="notif-permission" id="notifPermissionBtn">
-            🔔 Clique para ATIVAR NOTIFICAÇÕES
-        </div>
+        <div class="notif-permission" id="notifPermissionBtn">🔔 Clique para ATIVAR NOTIFICAÇÕES</div>
 
         <div class="stats">
             <span>📊 Mesas: <strong id="totalMesas">0</strong></span>
@@ -377,9 +101,8 @@
             <span>🟠 Presentes: <strong id="grupoCount">0</strong></span>
         </div>
 
-        <!-- MAPA INTERATIVO -->
         <div class="mapa-container">
-            <div class="mapa-titulo" style="text-align:center; margin-bottom:10px;">🍽️ DISPOSIÇÃO DAS MESAS</div>
+            <div style="text-align:center; margin-bottom:10px;">🍽️ DISPOSIÇÃO DAS MESAS</div>
             <div class="area-restaurante">
                 <div class="area-titulo">✨ Área VIP / Grandes Grupos</div>
                 <div class="mesas-disposicao" id="mapaVip"></div>
@@ -392,7 +115,6 @@
                 <div class="legenda-item"><div class="legenda-cor" style="background:#1b3a1f;"></div><span>Livre</span></div>
                 <div class="legenda-item"><div class="legenda-cor" style="background:#3d1e1e;"></div><span>Reservada</span></div>
                 <div class="legenda-item"><div class="legenda-cor" style="background:#ff9800;"></div><span>Grupo presente</span></div>
-                <div class="legenda-item"><span>👆 Toque na mesa</span></div>
             </div>
         </div>
 
@@ -404,47 +126,47 @@
         </div>
 
         <div id="tab-mapa" class="tab-content active">
-            <p style="font-size:0.7rem; text-align:center; color:#aaa;">✅ Toque em qualquer mesa verde para fazer uma reserva (mínimo 10 pessoas)</p>
+            <p style="font-size:0.7rem; text-align:center;">✅ Toque em qualquer mesa verde para fazer uma reserva (mínimo 10 pessoas)</p>
         </div>
 
-        <!-- ABA CARDÁPIO COM SELEÇÃO -->
+        <!-- CARDÁPIO COM SELEÇÃO -->
         <div id="tab-cardapio" class="tab-content">
             <div class="rodizio-box">
-                <div style="font-size:0.8rem; margin-bottom:5px;">🍖 RODÍZIO COMPLETO</div>
+                <div>🍖 RODÍZIO COMPLETO</div>
                 <div class="rodizio-preco">R$ 89,90</div>
-                <div class="rodizio-detalhe">por pessoa | Carnes nobres, buffet livre, sobremesas</div>
+                <div class="rodizio-detalhe">por pessoa | Carnes nobres, buffet livre</div>
                 <label style="margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
-                    <input type="checkbox" id="selecionarRodizio" style="width:20px; margin:0;"> Selecionar Rodízio para o grupo
+                    <input type="checkbox" id="selecionarRodizio" style="width:22px; height:22px;"> Selecionar Rodízio para o grupo
                 </label>
             </div>
 
             <div class="menu-categoria">
-                <h3>🍕 PRATOS À LA CARTE (adicional)</h3>
-                <div class="menu-item"><div><div class="menu-item-nome">Filé à Parmegiana</div><div class="menu-item-desc">R$ 62,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Filé à Parmegiana" data-preco="62.90" style="width:20px;"></div></div>
-                <div class="menu-item"><div><div class="menu-item-nome">Lasanha Bolonhesa</div><div class="menu-item-desc">R$ 49,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Lasanha Bolonhesa" data-preco="49.90" style="width:20px;"></div></div>
-                <div class="menu-item"><div><div class="menu-item-nome">Salmão Grelhado</div><div class="menu-item-desc">R$ 79,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Salmão Grelhado" data-preco="79.90" style="width:20px;"></div></div>
-                <div class="menu-item"><div><div class="menu-item-nome">Risoto de Camarão</div><div class="menu-item-desc">R$ 69,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Risoto de Camarão" data-preco="69.90" style="width:20px;"></div></div>
+                <h3>🍕 PRATOS À LA CARTE</h3>
+                <div class="menu-item"><div><div class="menu-item-nome">Filé à Parmegiana</div><div class="menu-item-desc">R$ 62,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Filé à Parmegiana" data-preco="62.90"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Lasanha Bolonhesa</div><div class="menu-item-desc">R$ 49,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Lasanha Bolonhesa" data-preco="49.90"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Salmão Grelhado</div><div class="menu-item-desc">R$ 79,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Salmão Grelhado" data-preco="79.90"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Risoto de Camarão</div><div class="menu-item-desc">R$ 69,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Risoto de Camarão" data-preco="69.90"></div></div>
             </div>
 
             <div class="menu-categoria">
                 <h3>🍹 BEBIDAS</h3>
-                <div class="menu-item"><div><div class="menu-item-nome">Refrigerante (Lata) - R$ 6,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Refrigerante Lata" data-preco="6.90" style="width:20px;"></div></div>
-                <div class="menu-item"><div><div class="menu-item-nome">Suco Natural - R$ 8,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Suco Natural" data-preco="8.90" style="width:20px;"></div></div>
-                <div class="menu-item"><div><div class="menu-item-nome">Cerveja Artesanal - R$ 16,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Cerveja Artesanal" data-preco="16.90" style="width:20px;"></div></div>
-                <div class="menu-item"><div><div class="menu-item-nome">Caipirinha - R$ 18,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Caipirinha" data-preco="18.90" style="width:20px;"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Refrigerante (Lata)</div><div class="menu-item-desc">R$ 6,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Refrigerante Lata" data-preco="6.90"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Suco Natural</div><div class="menu-item-desc">R$ 8,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Suco Natural" data-preco="8.90"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Cerveja Artesanal</div><div class="menu-item-desc">R$ 16,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Cerveja Artesanal" data-preco="16.90"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Caipirinha</div><div class="menu-item-desc">R$ 18,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Caipirinha" data-preco="18.90"></div></div>
             </div>
 
             <div class="menu-categoria">
                 <h3>🍰 SOBREMESAS</h3>
-                <div class="menu-item"><div><div class="menu-item-nome">Pudim - R$ 12,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Pudim" data-preco="12.90" style="width:20px;"></div></div>
-                <div class="menu-item"><div><div class="menu-item-nome">Brownie com Sorvete - R$ 16,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Brownie com Sorvete" data-preco="16.90" style="width:20px;"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Pudim</div><div class="menu-item-desc">R$ 12,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Pudim" data-preco="12.90"></div></div>
+                <div class="menu-item"><div><div class="menu-item-nome">Brownie com Sorvete</div><div class="menu-item-desc">R$ 16,90</div></div><div><input type="checkbox" class="itemCheck" data-nome="Brownie com Sorvete" data-preco="16.90"></div></div>
             </div>
 
             <div class="resumo-pedido" id="resumoPedido" style="display:none;">
                 <strong>📝 Resumo do pedido antecipado:</strong>
                 <div id="listaItensPedido"></div>
                 <div style="margin-top:8px;"><strong>Total: R$ <span id="totalPedido">0.00</span></strong></div>
-                <div style="font-size:0.65rem; margin-top:5px;">* Pedido será enviado junto com a reserva</div>
+                <div style="font-size:0.65rem; margin-top:5px;">* Este pedido será enviado junto com a reserva</div>
             </div>
         </div>
 
@@ -457,43 +179,19 @@
                 ⚠️ Reservas apenas para grupos com 10 ou mais pessoas
             </div>
             <form id="formReserva">
-                <div class="form-group">
-                    <label>👥 Nome do responsável / grupo</label>
-                    <input type="text" id="nomeCliente" required placeholder="Ex: Festa da Empresa">
-                </div>
-                <div class="form-group">
-                    <label>📞 Telefone para contato</label>
-                    <input type="tel" id="telCliente" required placeholder="(11) 99999-8888">
-                </div>
-                <div class="form-group">
-                    <label>📧 E-mail do cliente (receberá confirmação automática)</label>
-                    <input type="email" id="emailCliente" required placeholder="cliente@email.com">
-                </div>
-                <div class="form-group">
-                    <label>🍽️ Selecionar Mesa</label>
-                    <select id="selectMesa" required><option value="">-- Escolha uma mesa --</option></select>
-                </div>
-                <div class="form-group">
-                    <label>👥 Número de pessoas (mínimo 10)</label>
-                    <input type="number" id="qtdPessoas" min="10" value="12" required>
-                </div>
-                <div class="form-group">
-                    <label>📅 Data da reserva</label>
-                    <input type="date" id="dataReserva" required>
-                </div>
-                <div class="form-group">
-                    <label>⏰ Horário</label>
-                    <input type="time" id="horaReserva" value="20:00" required>
-                </div>
-                <div class="form-group">
-                    <label>📝 Observações (opcional)</label>
-                    <textarea id="obsReserva" rows="2" placeholder="Alergias, preferências..."></textarea>
-                </div>
-                <button type="submit" class="btn-warning">✅ Confirmar Reserva + Enviar E-mail</button>
+                <div class="form-group"><label>👥 Nome do responsável</label><input type="text" id="nomeCliente" required placeholder="Ex: Festa da Empresa"></div>
+                <div class="form-group"><label>📞 Telefone</label><input type="tel" id="telCliente" required placeholder="(11) 99999-8888"></div>
+                <div class="form-group"><label>📧 E-mail do cliente</label><input type="email" id="emailCliente" required placeholder="cliente@email.com"></div>
+                <div class="form-group"><label>🍽️ Selecionar Mesa</label><select id="selectMesa" required></select></div>
+                <div class="form-group"><label>👥 Número de pessoas (mínimo 10)</label><input type="number" id="qtdPessoas" min="10" value="12" required></div>
+                <div class="form-group"><label>📅 Data</label><input type="date" id="dataReserva" required></div>
+                <div class="form-group"><label>⏰ Horário</label><input type="time" id="horaReserva" value="20:00" required></div>
+                <div class="form-group"><label>📝 Observações</label><textarea id="obsReserva" rows="2"></textarea></div>
+                <button type="submit" class="btn-warning">✅ Confirmar Reserva</button>
             </form>
         </div>
     </div>
-    <footer>📧 E-mail de confirmação enviado AUTOMATICAMENTE para o cliente | Rodízio R$ 89,90</footer>
+    <footer>📋 Selecione os produtos no cardápio ANTES de fazer a reserva | Eles aparecerão na reserva</footer>
 </div>
 
 <button id="themeToggleBtn" class="theme-toggle">🌙</button>
@@ -501,98 +199,15 @@
 <div id="modalPresenca" class="modal">
     <div class="modal-card">
         <p style="font-size:1.2rem;">👥 Grupo chegou?</p>
-        <p id="modalPresencaInfo" style="margin-bottom:15px;"></p>
+        <p id="modalPresencaInfo"></p>
         <div class="modal-buttons">
-            <button id="btnSimPresente" style="background:#4caf50;">✅ Sim, já está aqui</button>
+            <button id="btnSimPresente" style="background:#4caf50;">✅ Sim</button>
             <button id="btnNaoPresente" style="background:#3a3a3a;">❌ Ainda não</button>
         </div>
     </div>
 </div>
 
 <script>
-    // ==================== CONFIGURAÇÃO DO EMAILJS ====================
-    // Configuração com o Service ID fornecido
-    const EMAILJS_CONFIG = {
-        PUBLIC_KEY: "YOUR_PUBLIC_KEY_HERE",  // 🔴 VOCÊ PRECISA COLOCAR SUA PUBLIC KEY
-        SERVICE_ID: "service_3yfeh1g",       // ✅ Service ID fornecido
-        TEMPLATE_ID: "template_reserva"       // 🔴 CRIE UM TEMPLATE COM ESTE NOME NO EMAILJS
-    };
-    
-    // Instruções: 
-    // 1. Acesse https://www.emailjs.com/
-    // 2. Vá em "Account" -> "API Keys" para pegar sua Public Key
-    // 3. Vá em "Email Templates" -> "Create New Template" com nome "template_reserva"
-    // 4. Cole o código do template abaixo
-    
-    let emailjsInicializado = false;
-    
-    // Tentar inicializar EmailJS se a Public Key estiver configurada
-    if (EMAILJS_CONFIG.PUBLIC_KEY && EMAILJS_CONFIG.PUBLIC_KEY !== "YOUR_PUBLIC_KEY_HERE" && EMAILJS_CONFIG.PUBLIC_KEY.length > 10) {
-        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-        emailjsInicializado = true;
-        console.log("✅ EmailJS inicializado!");
-        mostrarToast("✅ EmailJS configurado! E-mails serão enviados automaticamente.");
-    } else {
-        console.warn("⚠️ Configure sua PUBLIC_KEY do EmailJS no código!");
-        mostrarToast("⚠️ Configure a Public Key do EmailJS no código para enviar e-mails!");
-    }
-    
-    // Função para enviar e-mail automático
-    async function enviarEmailAutomatico(destinatario, nome, mesaNumero, pessoas, data, horario, obs, pedidoItens, rodizioSelecionado) {
-        if (!emailjsInicializado) {
-            console.log("EmailJS não configurado. E-mail seria enviado para:", destinatario);
-            return false;
-        }
-        
-        // Formatar pedido
-        let pedidoTexto = "";
-        if (rodizioSelecionado) {
-            pedidoTexto += `🍖 Rodízio Completo (R$ 89,90/pessoa) - Total do grupo: R$ ${(pessoas * 89.90).toFixed(2)}\n`;
-        }
-        if (pedidoItens && pedidoItens.length > 0) {
-            pedidoTexto += `\n📝 ITENS ADICIONAIS:\n`;
-            pedidoItens.forEach(item => {
-                pedidoTexto += `• ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
-            });
-            const totalItens = pedidoItens.reduce((s,i) => s + i.preco, 0);
-            pedidoTexto += `\nTotal itens adicionais: R$ ${totalItens.toFixed(2)}`;
-        }
-        if (pedidoTexto === "") pedidoTexto = "Nenhum pedido antecipado selecionado";
-        
-        const templateParams = {
-            to_email: destinatario,
-            to_name: nome,
-            mesa: mesaNumero,
-            pessoas: pessoas,
-            data: formatarData(data),
-            horario: horario,
-            observacoes: obs || "Nenhuma",
-            pedido: pedidoTexto,
-            restaurante: "Meu Restaurante Gourmet",
-            telefone_contato: "(11) 99999-8888"
-        };
-        
-        try {
-            const response = await emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams);
-            console.log("E-mail enviado!", response);
-            mostrarToast(`📧 E-mail enviado para ${destinatario}`);
-            return true;
-        } catch (error) {
-            console.error("Erro ao enviar e-mail:", error);
-            mostrarToast(`❌ Erro: ${error.text || "Verifique suas credenciais EmailJS"}`);
-            return false;
-        }
-    }
-    
-    function mostrarToast(mensagem) {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerText = mensagem;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 4000);
-    }
-    
-    // ==================== RESTO DO SISTEMA ====================
     let mesas = [];
     let reservas = [];
     let notificationPermission = false;
@@ -642,8 +257,8 @@
     }
 
     function carregarDados() {
-        const storedMesas = localStorage.getItem('restaurante_mesas_v5');
-        const storedReservas = localStorage.getItem('restaurante_reservas_v5');
+        const storedMesas = localStorage.getItem('restaurante_mesas_final');
+        const storedReservas = localStorage.getItem('restaurante_reservas_final');
         if(storedMesas) mesas = JSON.parse(storedMesas);
         else mesas = criarMesasPadrao();
         if(storedReservas) reservas = JSON.parse(storedReservas);
@@ -662,15 +277,14 @@
                 if(mesa) {
                     mesa.status = res.status === 'com_grupo' ? 'com_grupo' : 'reservada';
                     mesa.reservaId = res.id;
-                    mesa.temGrupoPresente = (res.status === 'com_grupo');
                 }
             }
         });
     }
 
     function salvarTudo() {
-        localStorage.setItem('restaurante_mesas_v5', JSON.stringify(mesas));
-        localStorage.setItem('restaurante_reservas_v5', JSON.stringify(reservas));
+        localStorage.setItem('restaurante_mesas_final', JSON.stringify(mesas));
+        localStorage.setItem('restaurante_reservas_final', JSON.stringify(reservas));
         renderizarMapa();
         renderizarReservas();
         atualizarSelect();
@@ -737,28 +351,60 @@
         reservaParaPresenca = null;
     });
 
+    function mostrarToast(msg) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerText = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
     function renderizarReservas() {
         const container = document.getElementById('listaReservas');
         if(!container) return;
-        if(reservas.length === 0) { container.innerHTML = '<div class="vazio">Nenhuma reserva</div>'; return; }
+        if(reservas.length === 0) { container.innerHTML = '<div class="vazio">Nenhuma reserva ativa</div>'; return; }
         container.innerHTML = '';
         reservas.sort((a,b)=>a.data.localeCompare(b.data)).forEach(res => {
             const mesa = mesas.find(m=>m.id===res.mesaId);
             const statusText = res.status === 'ativa' ? '⏰ Aguardando' : (res.status === 'com_grupo' ? '👥 Presente' : 'Cancelada');
+            
+            // Montar HTML do pedido
+            let pedidoHtml = '';
+            let totalPedido = 0;
+            
+            if(res.rodizioSelecionado) {
+                const totalRodizio = res.pessoas * 89.90;
+                pedidoHtml += `<div style="font-size:0.7rem; background:#ff980020; padding:5px; border-radius:12px; margin-top:5px;">🍖 Rodízio Completo - R$ 89,90/pessoa (Total grupo: R$ ${totalRodizio.toFixed(2)})</div>`;
+                totalPedido += totalRodizio;
+            }
+            
+            if(res.pedidoItens && res.pedidoItens.length > 0) {
+                let itensHtml = '<div style="font-size:0.7rem; background:#4caf5020; padding:5px; border-radius:12px; margin-top:5px;">📝 ITENS ADICIONAIS:<br>';
+                res.pedidoItens.forEach(item => {
+                    itensHtml += `• ${item.nome} - R$ ${item.preco.toFixed(2)}<br>`;
+                    totalPedido += item.preco;
+                });
+                itensHtml += `</div>`;
+                pedidoHtml += itensHtml;
+            }
+            
+            if(pedidoHtml === '') {
+                pedidoHtml = '<div style="font-size:0.65rem; margin-top:5px; color:#aaa;">📝 Nenhum pedido antecipado selecionado</div>';
+            } else {
+                pedidoHtml += `<div style="font-size:0.7rem; margin-top:5px;"><strong>Total do pedido: R$ ${totalPedido.toFixed(2)}</strong></div>`;
+            }
+            
             const div = document.createElement('div');
             div.className = `reserva-item`;
-            let pedidoHtml = '';
-            if(res.pedidoItens && res.pedidoItens.length > 0) {
-                pedidoHtml = `<div style="font-size:0.65rem; margin-top:5px; background:#ff980020; padding:5px; border-radius:12px;">📝 Pedido: ${res.pedidoItens.map(i=>i.nome).join(', ')}</div>`;
-            } else if(res.rodizioSelecionado) {
-                pedidoHtml = `<div style="font-size:0.65rem; margin-top:5px;">🍖 Rodízio selecionado para ${res.pessoas} pessoas</div>`;
-            }
             div.innerHTML = `
-                <div style="display:flex; justify-content:space-between;"><strong>🎉 ${escapeHtml(res.nome)}</strong><span style="background:#ff980020; padding:2px 10px; border-radius:20px;">${res.pessoas} pess.</span></div>
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+                    <strong>🎉 ${escapeHtml(res.nome)}</strong>
+                    <span style="background:#ff980020; padding:2px 10px; border-radius:20px;">${res.pessoas} pessoas</span>
+                </div>
                 <div style="font-size:0.7rem; margin:6px 0;">📞 ${escapeHtml(res.telefone)} | 📧 ${escapeHtml(res.email)} | Mesa ${mesa?.numero || '?'}</div>
                 <div style="font-size:0.7rem;">📅 ${formatarData(res.data)} às ${res.horario}</div>
                 ${pedidoHtml}
-                ${res.obs ? `<div style="font-size:0.65rem;">📝 ${escapeHtml(res.obs)}</div>` : ''}
+                ${res.obs ? `<div style="font-size:0.65rem; margin-top:5px;">📝 Obs: ${escapeHtml(res.obs)}</div>` : ''}
                 <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
                     ${res.status === 'ativa' ? `<button class="btn-confirmar" data-id="${res.id}">👥 Marcar Presente</button>` : ''}
                     <button class="btn-cancelar" data-id="${res.id}">Cancelar</button>
@@ -770,52 +416,67 @@
             btn.onclick = () => { const id=parseInt(btn.dataset.id); const r=reservas.find(r=>r.id===id); if(r) abrirModalPresenca(id, mesas.find(m=>m.id===r.mesaId)?.numero); };
         });
         document.querySelectorAll('.btn-cancelar').forEach(btn => {
-            btn.onclick = () => { if(confirm("Cancelar?")){ const id=parseInt(btn.dataset.id); const r=reservas.find(r=>r.id===id); if(r){ const m=mesas.find(m=>m.id===r.mesaId); if(m){ m.status='disponivel'; m.reservaId=null; } reservas=reservas.filter(r=>r.id!==id); salvarTudo(); notificar('Reserva cancelada', `Reserva de ${r.nome} cancelada.`); mostrarToast(`Reserva de ${r.nome} cancelada`); } } };
+            btn.onclick = () => { if(confirm("Cancelar esta reserva?")){ const id=parseInt(btn.dataset.id); const r=reservas.find(r=>r.id===id); if(r){ const m=mesas.find(m=>m.id===r.mesaId); if(m){ m.status='disponivel'; m.reservaId=null; } reservas=reservas.filter(r=>r.id!==id); salvarTudo(); notificar('Reserva cancelada', `Reserva de ${r.nome} cancelada.`); mostrarToast(`Reserva de ${r.nome} cancelada`); } } };
         });
     }
 
     function atualizarSelect() {
         const select = document.getElementById('selectMesa');
-        const disp = mesas.filter(m=>m.status==='disponivel' && m.capacidade>=10);
-        select.innerHTML = '<option value="">-- Selecione --</option>';
+        const disp = mesas.filter(m=>m.status==='disponivel' && m.capacidad>=10);
+        select.innerHTML = '<option value="">-- Selecione uma mesa --</option>';
         disp.forEach(m => select.innerHTML += `<option value="${m.id}">Mesa ${m.numero} (${m.area} - Cap.${m.capacidade})</option>`);
     }
 
+    // FUNÇÃO PARA COLETAR PEDIDO DO CARDÁPIO - CORRIGIDA
     function coletarPedido() {
         const itens = [];
         document.querySelectorAll('.itemCheck:checked').forEach(cb => {
-            itens.push({ nome: cb.dataset.nome, preco: parseFloat(cb.dataset.preco) });
+            itens.push({ 
+                nome: cb.getAttribute('data-nome'), 
+                preco: parseFloat(cb.getAttribute('data-preco')) 
+            });
         });
         const rodizioSelecionado = document.getElementById('selecionarRodizio')?.checked || false;
         return { itens, rodizioSelecionado };
     }
 
-    async function criarReserva(mesaId, nome, tel, email, pessoas, data, horario, obs, pedidoItens, rodizioSelecionado) {
+    function criarReserva(mesaId, nome, tel, email, pessoas, data, horario, obs, pedidoItens, rodizioSelecionado) {
         if(pessoas<10) { alert("Mínimo 10 pessoas"); return false; }
         const mesa = mesas.find(m=>m.id===mesaId);
         if(!mesa || mesa.status!=='disponivel') { alert("Mesa indisponível"); return false; }
         if(pessoas > mesa.capacidade) { alert(`Mesa ${mesa.numero} suporta ${mesa.capacidade} pessoas`); return false; }
         const hoje = new Date().toISOString().split('T')[0];
-        if(data < hoje) { alert("Data inválida"); return false; }
-        
-        const totalPedido = pedidoItens.reduce((sum, i) => sum + i.preco, 0);
+        if(data < hoje) { alert("Data não pode ser anterior ao dia atual"); return false; }
         
         const nova = { 
-            id: Date.now(), mesaId, nome: nome.trim(), telefone: tel.trim(), email: email.trim(),
-            pessoas, data, horario, obs: obs.trim(), status: 'ativa', 
-            notificadoDia: false, notificadoHora: false,
-            pedidoItens: pedidoItens, rodizioSelecionado: rodizioSelecionado,
-            totalPedido: totalPedido
+            id: Date.now(), 
+            mesaId, 
+            nome: nome.trim(), 
+            telefone: tel.trim(), 
+            email: email.trim(),
+            pessoas, 
+            data, 
+            horario, 
+            obs: obs.trim(), 
+            status: 'ativa', 
+            notificadoDia: false, 
+            notificadoHora: false,
+            pedidoItens: pedidoItens,      // SALVA OS ITENS SELECIONADOS
+            rodizioSelecionado: rodizioSelecionado  // SALVA SE RODIZIO FOI SELECIONADO
         };
         reservas.push(nova);
         mesa.status = 'reservada';
         mesa.reservaId = nova.id;
         salvarTudo();
         
-        // Enviar e-mail automático
-        const emailEnviado = await enviarEmailAutomatico(email, nome, mesa.numero, pessoas, data, horario, obs, pedidoItens, rodizioSelecionado);
+        // Notificação com resumo do pedido
+        let msgPedido = "";
+        if(rodizioSelecionado) msgPedido += "🍖 Rodízio + ";
+        if(pedidoItens.length > 0) msgPedido += `${pedidoItens.length} item(ns) adicional(is)`;
+        if(msgPedido === "") msgPedido = "sem pedido antecipado";
         
-        notificar('✅ Nova reserva!', `${nome} - Mesa ${mesa.numero} para ${pessoas} pessoas.`);
+        notificar('✅ Nova reserva!', `${nome} - Mesa ${mesa.numero} para ${pessoas} pessoas. Pedido: ${msgPedido}`);
+        mostrarToast(`✅ Reserva de ${nome} confirmada! Pedido salvo.`);
         return true;
     }
 
@@ -831,9 +492,9 @@
                 salvarTudo();
             }
             if(res.data === hoje && !res.notificadoHora) {
-                const [rh, rm] = res.horario.split(':').map(Number);
+                const [rh] = res.horario.split(':').map(Number);
                 if(rh-1 === agora.getHours() && agora.getMinutes()<5) {
-                    notificar('⏰ Em 1 hora!', `${res.nome} - Reserva ${res.horario}.`);
+                    notificar('⏰ Em 1 hora!', `${res.nome} - Reserva ${res.horario}. Prepare a mesa ${mesa?.numero}`);
                     res.notificadoHora = true;
                     salvarTudo();
                 }
@@ -846,6 +507,7 @@
         const resumoDiv = document.getElementById('resumoPedido');
         const listaDiv = document.getElementById('listaItensPedido');
         const totalSpan = document.getElementById('totalPedido');
+        
         if(itens.length === 0 && !rodizioSelecionado) {
             resumoDiv.style.display = 'none';
             return;
@@ -876,16 +538,18 @@
         if(!nome || !tel || !email) { alert("Preencha nome, telefone e e-mail"); return; }
         if(!email.includes('@')) { alert("E-mail inválido"); return; }
         
+        // Coletar pedido selecionado no cardápio
         const { itens, rodizioSelecionado } = coletarPedido();
         
-        const reservaOk = await criarReserva(mesaId, nome, tel, email, pessoas, data, horario, obs, itens, rodizioSelecionado);
+        const reservaOk = criarReserva(mesaId, nome, tel, email, pessoas, data, horario, obs, itens, rodizioSelecionado);
         
         if(reservaOk) {
-            alert("Reserva confirmada! E-mail enviado automaticamente para " + email);
+            alert(`✅ Reserva confirmada!\n\n📋 Pedido salvo:\n${rodizioSelecionado ? "🍖 Rodízio Completo\n" : ""}${itens.map(i=>`• ${i.nome}\n`).join('') || "Nenhum item adicional"}`);
             document.getElementById('formReserva').reset();
             document.getElementById('qtdPessoas').value = '12';
             const hoje = new Date().toISOString().split('T')[0];
             document.getElementById('dataReserva').value = hoje;
+            // Limpar seleções do cardápio
             document.querySelectorAll('.itemCheck:checked').forEach(cb => cb.checked = false);
             document.getElementById('selecionarRodizio').checked = false;
             atualizarResumoPedido();
@@ -904,6 +568,11 @@
             if(id === 'reservas') renderizarReservas();
             if(id === 'cardapio') atualizarResumoPedido();
         });
+    });
+
+    // Atualizar resumo do pedido quando marcar/desmarcar itens
+    document.querySelectorAll('.itemCheck, #selecionarRodizio').forEach(el => {
+        el.addEventListener('change', atualizarResumoPedido);
     });
 
     function setDataMinima() {
@@ -925,13 +594,6 @@
     setDataMinima();
     pedirPermissao();
     atualizarResumoPedido();
-    
-    // Instruções para configurar o EmailJS
-    console.log("📧 Para enviar e-mails automaticamente, siga os passos:");
-    console.log("1. Acesse https://www.emailjs.com/");
-    console.log("2. Vá em 'Account' -> 'API Keys' e copie sua Public Key");
-    console.log("3. Substitua 'YOUR_PUBLIC_KEY_HERE' pela sua chave");
-    console.log("4. Crie um template com nome 'template_reserva' e use as variáveis: {{to_email}}, {{to_name}}, {{mesa}}, {{pessoas}}, {{data}}, {{horario}}, {{observacoes}}, {{pedido}}");
 </script>
 </body>
 </html>
